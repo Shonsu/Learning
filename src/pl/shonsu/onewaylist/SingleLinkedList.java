@@ -3,9 +3,10 @@ package pl.shonsu.onewaylist;
 public class SingleLinkedList<E> {
 
     private Node<E> first;
+    //private Node<E> last;
 
     private static class Node<E> {
-        private E element;
+        private final E element;
         private Node<E> next;
 
         Node(E element) {
@@ -28,20 +29,7 @@ public class SingleLinkedList<E> {
     }
 
     public E get(int index) {
-        if (isEmpty() || index < 0) {
-            throw new IndexOutOfBoundsException("Index " + index);
-        }
-
-        Node<E> currentNode = first;
-        int currentIndex = index;
-        while (currentIndex > 0) {
-            if (currentNode == null) {
-                throw new IndexOutOfBoundsException("Index " + index);
-            }
-            currentNode = currentNode.next;
-            currentIndex--;
-        }
-
+        Node<E> currentNode = getNodeWithPrevious(index).current;
         return currentNode.element;
     }
 
@@ -74,6 +62,7 @@ public class SingleLinkedList<E> {
 
         return new NodePair<>(previousNode, currentNode);
     }
+
     public boolean add(int index, E element) {
         if (first == null && index == 0) {
             first = new Node<>(element);
@@ -96,6 +85,7 @@ public class SingleLinkedList<E> {
         previousNode.next = newNode;
         return true;
     }
+
     public E remove(int index) {
         NodePair<E> pair = getNodeWithPrevious(index);
         Node<E> previousNode = pair.previous;
@@ -110,5 +100,15 @@ public class SingleLinkedList<E> {
 
         previousNode.next = nodeToRemove.next;
         return removedElement;
+    }
+    public SingleLinkedList<E> reverse(){
+        SingleLinkedList<E> reversed= new SingleLinkedList<>();
+        int i  = 0;
+        while (i < size()) {
+          //  System.out.println("Inside reverse " + getNodeWithPrevious(i).current.element);
+            reversed.add(0, getNodeWithPrevious(i).current.element);
+            i++;
+        }
+        return reversed;
     }
 }
