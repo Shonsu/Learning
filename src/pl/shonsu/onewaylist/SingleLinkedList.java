@@ -1,4 +1,4 @@
-package pl.shonsu.tests;
+package pl.shonsu.onewaylist;
 
 public class SingleLinkedList<E> {
 
