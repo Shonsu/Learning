@@ -1,5 +1,6 @@
 package pl.shonsu.streams;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,9 +12,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamsApp {
-        public static void main(String[] args) throws Exception {
+        public static void main(String[] args) {
 
                 List<Czlowiek> ludzie = getPeople();
+                List<Double> test = new ArrayList<>();
+                test.add(12.2);
+                test.add(12.76);
+                test.add(12.34);
+                test.add(2.2);
+                test.add(212.09);
+                test.add(102.38);
+                test.add(45.76);
+                test.add(12.15);
+                test.add(3.223);
+                test.add(2.432);
+                test.add(2.432);
+                List<Double> testReversed = test.stream().sorted(Comparator.comparingDouble((Double o) -> o - Math.floor(o)).reversed()).toList();
+                testReversed.forEach(  (Double o) -> System.out.println(o));
 
                 System.out.println("Before sorting:");
                 ludzie.forEach(czlowiek -> System.out
